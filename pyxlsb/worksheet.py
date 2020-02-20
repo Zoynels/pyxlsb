@@ -5,6 +5,7 @@ from . import recordtypes as rt
 from .row import Row
 from .recordreader import RecordReader
 from .conv import convert_value
+from .conv import to_dataframe as export__to_dataframe
 
 if sys.version_info > (3,):
     xrange = range
@@ -77,6 +78,9 @@ class Worksheet(object):
                 if row is not None:
                     yield row
                 break
+
+    def to_dataframe(self, skiprows=None, header=0, nrows=None, header_string=False):
+        return export__to_dataframe(sheet=self, skiprows=skiprows, header=header, nrows=nrows, header_string=header_string)
 
     def close(self):
         self._fp.close()
